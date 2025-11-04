@@ -58,17 +58,34 @@ export async function initiateSale(data: InitiateSaleBody) {
     customerName: data.customerName,
   };
 
-  console.log('\t\t\tbody--------->', body);
+ 
   body['secureHash'] = computeSecureHash(body, config.hmacKey);
 
   const url = `${config.baseUrl}${config.salePath}`;
 
-  console.log('\t\t\tbody after' , body);
-  const resp = await axios.post(url, body, {
+  const requestConfig = {
     headers: { 'Content-Type': 'application/json' },
     // timeout can be adjusted
     timeout: 20000,
-  });
- 
+  };
+
+  // Log full request details
+  console.log('\n=== REQUEST ===');
+  console.log('Method:', 'POST');
+  console.log('URL:', url);
+  console.log('Headers:', JSON.stringify(requestConfig.headers, null, 2));
+  console.log('Body:', JSON.stringify(body, null, 2));
+  console.log('================\n');
+
+  const resp = await axios.post(url, body, requestConfig);
+
+  // Log full response details
+  console.log('\n=== RESPONSE ===');
+  console.log('Status:', resp.status);
+  console.log('Status Text:', resp.statusText);
+  console.log('Headers:', JSON.stringify(resp.headers, null, 2));
+  console.log('Data:', JSON.stringify(resp.data, null, 2));
+  console.log('================\n');
+
   return resp.data;
 }
