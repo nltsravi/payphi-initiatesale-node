@@ -69,13 +69,16 @@ export async function initiateSale(data: InitiateSaleBody) {
     timeout: 20000,
   };
 
-  // Log full request details
-  console.log('\n=== REQUEST ===');
-  console.log('Method:', 'POST');
-  console.log('URL:', url);
-  console.log('Headers:', JSON.stringify(requestConfig.headers, null, 2));
-  console.log('Body:', JSON.stringify(body, null, 2));
-  console.log('================\n');
+  // Log full request being sent to phicommerce
+  console.log('\n==========================================');
+  console.log('FULL REQUEST TO PHICOMMERCE URL');
+  console.log('==========================================');
+  console.log('Method: POST');
+  console.log('Full URL:', url);
+  console.log('Request Headers:', JSON.stringify(requestConfig.headers, null, 2));
+  console.log('Request Body (Complete Payload):');
+  console.log(JSON.stringify(body, null, 2));
+  console.log('==========================================\n');
 
   const resp = await axios.post(url, body, requestConfig);
 
